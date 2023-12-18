@@ -10,6 +10,11 @@ echo "# Author       : vigneshpandian"
 echo "################################################################################"
 echo " "
 
+# declarations of locations
+current_user=$(whoami); 
+new_directory="/var"; 
+
+
 # updating server 
 echo    "---- UPDATING SERVER ----"
 echo    " "
@@ -146,3 +151,43 @@ if export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PAT
 else 
     echo " yarn path failed to set"
 fi
+
+# cloning and installation of canvas lms
+
+if cd "$new_directory"; then 
+    echo " changed into /var directory "
+else 
+    echo " not changed into /var directory"
+fi
+
+echo " cloning into github"
+if sudo git clone https://github.com/instructure/canvas-lms.git canvas; then 
+    echo " cloned successfully "
+else 
+    echo " cloning failed / directory already exists "
+
+echo " giving access to the user"
+if sudo chown "$current_user":"$current_user" "$new_directory"/canvas; then 
+    echo " successfully given permission to the current user"
+else    
+    echo " failed to give permission to the current user"
+fi
+
+echo " switching to canvas directory..."
+if cd canvas; then 
+    echo "switches successfully to the canvas directory"
+else
+    echo "switching to canvas directory failed"
+fi
+
+echo "switching branch"
+if git checkout prod; then 
+    echo "switched to prod branch successfully"
+else 
+    echo "switching to prod branch failed"
+fi
+
+echo "config..."
+for config in amazon_s3 database delayed_jobs domain file_store outgoing_mail security external_migration;do cp config/$config.yml.example config/$config.yml; done 
+
+
