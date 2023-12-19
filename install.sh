@@ -152,6 +152,12 @@ else
     echo "✘ yarn path failed to set"
 fi
 
+# giving permission to the /var/canvas dir
+if sudo chmod -R 777 /var/* ; then
+    echo  "✓ permission given to /var/canvas dir"
+else 
+    echo  "✘ failed to give permission to /var/canvas dir"
+
 # cloning and installation of canvas lms
 
 if cd "$new_directory"; then 
@@ -159,6 +165,7 @@ if cd "$new_directory"; then
 else 
     echo "✘ not changed into /var directory"
 fi
+
 
 echo " cloning into github"
 if sudo git clone https://github.com/instructure/canvas-lms.git canvas; then 
