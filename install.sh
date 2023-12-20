@@ -92,7 +92,7 @@ echo " "
 echo "★ installing additional packages "
 echo " "
 
-echo " adding ruby repo "
+echo "★ adding ruby repo "
 if sudo add-apt-repository ppa:instructure/ruby; then 
     echo "✓ ruby repo added successfully"
 else
@@ -100,7 +100,8 @@ else
 fi
 
 # updating list
-echo " updating apt list"
+echo " "
+echo "★ updating apt list"
 if sudo apt-get update; then 
     echo "✓ list updated successfully"
 else
@@ -108,6 +109,7 @@ else
 fi
 
 # installing additional packages
+echo " "
 if sudo apt-get install -y ruby3.1 ruby3.1-dev zlib1g-dev libxml2-dev libsqlite3-dev git-core git software-properties-common postgresql libpq-dev libxmlsec1-dev libidn11-dev curl make g++; then
     echo "✓ additional packages has been installed"
 else
@@ -115,15 +117,26 @@ else
 fi
 
 # installing nvm
-echo " nvm"
+echo " "
+echo "★ cloning nvm from github"
 
-if curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash; then
-    echo "✓ curl nvm finished "
+if git clone https://github.com/nvm-sh/nvm.git; then
+    echo "✓ nvm downloaded "
 else
-    echo "✘ curl nvm failed / already exists"
+    echo "✘ failed to downoad nvm"
 fi
 
-echo " sourcing...."
+cd nvm  # changing dir to nvm
+echo " "
+if ./install.sh ; then  # instaling nvm 
+    echo "✓ nvm installed successfully"
+else
+    echo "✘ failed to install nvm"
+fi
+
+cd  # changing to default directory
+
+echo "★ sourcing...."
 if source ~/.bashrc; then 
     echo "✓ sourcing completed "
 else 
