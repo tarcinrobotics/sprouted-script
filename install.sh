@@ -150,3 +150,4 @@ if [ -d "$NVM_DIR" ]; then
 else
   echo "✓ nvm path exported"
 fi
+echo "★★★★★ STAGE 1 completed ★★★★★"
