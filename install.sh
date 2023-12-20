@@ -130,73 +130,13 @@ else
     echo "✘ sourcing failed"
 fi
 
-echo " installing node..."
+export NVM_DIR="$HOME/.nvm"
 
-if nvm install 18.1.0; then 
-    echo "✓ nvm successfully installed"
+if [ -d "$NVM_DIR" ]; then
+  echo "✘ nvm path already exists / failed to add"
 else
-    echo "✘ nvm installation failed"
+  echo "✓ nvm path exported"
 fi
-
-echo " installing yarn..."
-if curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.19.1; then
-    echo "✓ curling yarn success "
-else 
-    echo "✘ curling yarn failed "
-fi
-
-echo " setting path for yarn..."
-if export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH" ; then
-    echo "✓ yarn path setted successfully"
-else 
-    echo "✘ yarn path failed to set"
-fi
-
-# giving permission to the /var/canvas dir
-if sudo chmod -R 777 /var/* ; then
-    echo  "✓ permission given to /var/canvas dir"
-else 
-    echo  "✘ failed to give permission to /var/canvas dir"
-
-# cloning and installation of canvas lms
-
-if cd "$new_directory"; then 
-    echo "✓ changed into /var directory "
-else 
-    echo "✘ not changed into /var directory"
-fi
-
-
-echo " cloning into github"
-if sudo git clone https://github.com/instructure/canvas-lms.git canvas; then 
-    echo "✓ cloned successfully "
-else 
-    echo "✘ cloning failed / directory already exists "
-
-echo " giving access to the user"
-if sudo chown "$current_user":"$current_user" "$new_directory"/canvas; then 
-    echo "✓ successfully given permission to the current user"
-else    
-    echo "✘ failed to give permission to the current user"
-fi
-
-echo " switching to canvas directory..."
-if cd canvas; then 
-    echo "✓ switched successfully to the canvas directory"
-else
-    echo "✘ switching to canvas directory failed"
-fi
-
-echo "switching branch"
-if git checkout prod; then 
-    echo "✓ switched to prod branch successfully"
-else 
-    echo "✘ switching to prod branch failed"
-fi
-
-echo "editing config file..."
-for config in amazon_s3 database delayed_jobs domain file_store outgoing_mail security external_migration;do cp config/$config.yml.example config/$config.yml; done 
-echo "✓ completed editing file"
 
 
 
