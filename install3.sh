@@ -1,13 +1,10 @@
 # declarations for file configuration
-
-
 # configuring database, outgoing mail, domain settings
-
 # copying database file 
 database_file="/var/canvas/config/database.yml"
 dynamic_settings_file="/var/canvas/config/dynamic_settings.yml"
 outgoing_mail_file="/var/canvas/config/outgoing_mail.yml"
-security_mail_file="/var/canvas/config/security.yml"
+security_file="/var/canvas/config/security.yml"
 outgoing_mail_content='production:
   delivery_method: "smtp"
   address: "smtp.gmail.com"
@@ -20,14 +17,6 @@ outgoing_mail_content='production:
   outgoing_address: "tarcinrobotics301@gmail.com"
   default_name: "SproutED - Unlock the Tech, Unlock the World"'
 
-security_mail_content="
-production: &default
-
-# replace this with a random string of at least 20 characters
-
-encryption_key: daedd3a131ddd8988b14f6e4e01039c93cfa0160
-
-lti_iss: '{your_domain}'"
 
 if cp /var/canvas/config/database.yml.example /var/canvas/config/database.yml ; then
     echo "✓ successfully copied the database file"
@@ -75,9 +64,12 @@ else
 fi
 
 # security file
-awk -v sec_config="$security_mail_content" '/production:/ {print sec_config; found=1; next} found && /^\s*$/{found=0} !found' "$security_file" > "$security_file.tmp"
-if mv "$security_file.tmp" "security_file" ; then
+#awk -v sec_config="$security_content" '/production:/ {print sec_config; found=1; next} found && /^\s*$/{found=0} !found' "$security_file" > "$security_file.tmp"
+
+
+if sed -i '/production:/,/lti_iss:/{s/encryption_key: .*/encryption_key: daedd3a131ddd8988b14f6e4e01039c93cfa0160/}' $security_file ; then
     echo "✓ security file configured successfully"
 else
     echo "✘ security file failed to configure"
 fi
+echo "★★★★★ STAGE 3 completed ★★★★★"
