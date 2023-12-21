@@ -1,10 +1,12 @@
 # declarations for file configuration
 # configuring database, outgoing mail, domain settings
-# copying database file 
 database_file="/var/canvas/config/database.yml"
 dynamic_settings_file="/var/canvas/config/dynamic_settings.yml"
 outgoing_mail_file="/var/canvas/config/outgoing_mail.yml"
 security_file="/var/canvas/config/security.yml"
+domain_file="/var/canvas/config/domain.yml"
+
+# content
 outgoing_mail_content='production:
   delivery_method: "smtp"
   address: "smtp.gmail.com"
@@ -17,7 +19,24 @@ outgoing_mail_content='production:
   outgoing_address: "tarcinrobotics301@gmail.com"
   default_name: "SproutED - Unlock the Tech, Unlock the World"'
 
+domain_content='test:
+  domain: localhost:3000
 
+development:
+  domain: "localhost:3001"
+  # If you want to set up SSL and a separate files domain, use the following and set up puma-dev from github.com/puma/puma-dev
+  # domain: "canvas-lms.test" # for puma-dev
+  # files_domain: "canvas-lms.files" # for puma-dev
+  # ssl: true
+
+production:
+  domain: localhost
+  # whether this instance of canvas is served over ssl (https) or not
+  # defaults to true for production, false for test/development
+  ssl: true
+  # files_domain: "canvasfiles.example.com"'
+
+# copying database file 
 if cp /var/canvas/config/database.yml.example /var/canvas/config/database.yml ; then
     echo "✓ successfully copied the database file"
 else
@@ -65,11 +84,16 @@ fi
 
 # security file
 #awk -v sec_config="$security_content" '/production:/ {print sec_config; found=1; next} found && /^\s*$/{found=0} !found' "$security_file" > "$security_file.tmp"
-
-
 if sed -i '/production:/,/lti_iss:/{s/encryption_key: .*/encryption_key: daedd3a131ddd8988b14f6e4e01039c93cfa0160/}' $security_file ; then
     echo "✓ security file configured successfully"
 else
     echo "✘ security file failed to configure"
 fi
+
+# domain file
+if echo "$domain_content" > "$domain_file" ; then
+    echo "✓ domain file configured successfully"
+else
+    echo "✘ domain file failed to configure"
+
 echo "★★★★★ STAGE 3 completed ★★★★★"
