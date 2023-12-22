@@ -85,6 +85,14 @@ else
   echo "✘ switching to prod branch failed"
 fi
 echo " "
+echo "★ Giving permissions"
+echo " "
+if sudo chmod 777 /var/canvas/* ; then 
+  echo "✓ successfully given the permissions to dir"
+else
+  echo "✘ failed to given permission to dir"
+fi
+echo " "
 echo "★ Editing config file..."
 echo " "
 for config in amazon_s3 database delayed_jobs domain file_store outgoing_mail security external_migration; do 
