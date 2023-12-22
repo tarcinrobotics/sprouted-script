@@ -1,5 +1,5 @@
 # installing dependencies
-
+echo "---- STAGE 4 ----"
 # installing package
 echo " "
 echo "★ installing packages..."
@@ -9,7 +9,12 @@ if sudo apt-get install libyaml-dev; then
 else
     echo "✘ failed to install package / already installed "
 fi
-
+# changing dir to /var/canvas
+echo " "
+echo "★ changing dir..."
+echo " "
+cd 
+cd /var/canvas
 # bundler
 echo " "
 echo "★ installing bundler "
