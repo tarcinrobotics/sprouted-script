@@ -61,7 +61,7 @@ fi
 
 # databse.yml file
 
-if sed -i 's/password: your_password/password: canvas/g' "$database_file" ; then    
+if sed -i 's/password: your_password/password: Tarcin@123/g' "$database_file" ; then    
     echo "✓ changed password to canvas to database.yml file"
 else    
     echo "✘ failed in changing the password to database.yml file / the password has been already changed"
@@ -95,5 +95,6 @@ if echo "$domain_content" > "$domain_file" ; then
     echo "✓ domain file configured successfully"
 else
     echo "✘ domain file failed to configure"
+fi
 
 echo "★★★★★ STAGE 3 completed ★★★★★"
