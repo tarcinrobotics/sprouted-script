@@ -22,7 +22,7 @@ fi
 echo " "
 echo "★ Setting path for yarn..."
 echo " "
-if export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"; then
+if export PATH="$PATH:`yarn global bin`" ; then
   echo "✓ yarn path setted successfully"
 else 
   echo "✘ yarn path failed to set"
