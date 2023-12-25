@@ -22,11 +22,12 @@ fi
 echo " "
 echo "★ Setting path for yarn..."
 echo " "
-if export PATH="$PATH:`yarn global bin`" ; then
+if cat export PATH="$PATH:`yarn global bin`" >> ~/.bashrc ; then
   echo "✓ yarn path setted successfully"
 else 
   echo "✘ yarn path failed to set"
 fi
+
 
 # Cloning and installation of canvas lms
 
