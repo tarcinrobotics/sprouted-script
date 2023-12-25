@@ -22,10 +22,18 @@ fi
 echo " "
 echo "★ Setting path for yarn..."
 echo " "
-if cat export PATH="$PATH:`yarn global bin`" >> ~/.bashrc ; then
-  echo "✓ yarn path setted successfully"
-else 
-  echo "✘ yarn path failed to set"
+#if  export PATH="$PATH:`yarn global bin`" >> ~/.bashrc ; then
+#  echo "✓ yarn path setted successfully"
+#else 
+#  echo "✘ yarn path failed to set"
+#fi
+if grep -q "export PATH=\"\$PATH:\`yarn global bin\`\"" "$HOME/.bashrc"; then
+    echo "The line is already in ~/.bashrc. No changes made."
+else
+    # If not found, append the line to ~/.bashrc
+    echo 'export PATH="$PATH:`yarn global bin`"' >> "$HOME/.bashrc"
+    echo "Line added to ~/.bashrc."
+    echo "✓ yarn path setted successfully"
 fi
 
 
