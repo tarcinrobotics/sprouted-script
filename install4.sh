@@ -9,12 +9,21 @@ if sudo apt-get install libyaml-dev; then
 else
     echo "✘ failed to install package / already installed "
 fi
+
+sudo chmod 777 -R /var/canvas/*
+sudo chown -R your_username /var/canvas/packages/babel-plugin-themeable-styles/
+sudo chmod 777 -R /var/canvas/.git/*
+
 # changing dir to /var/canvas
 echo " "
 echo "★ changing dir..."
 echo " "
 cd 
-cd /var/canvas
+if cd /var/canvas ; then 
+    echo "✓ switched to canvas dir"
+else
+    echo "✘ failed to switch dir to canvas"
+fi
 # bundler
 echo " "
 echo "★ installing bundler "
