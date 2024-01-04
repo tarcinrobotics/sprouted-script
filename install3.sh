@@ -17,7 +17,7 @@ outgoing_mail_content='production:
   authentication: "plain" # plain, login, or cram_md5
   domain: "localhost"
   outgoing_address: "tarcinrobotics301@gmail.com"
-  default_name: "SproutED - Unlock the Tech, Unlock the World"'
+  default_name: "SproutED-Unlock the Tech,Unlock the World"'
 
 domain_content='test:
   domain: localhost:3000
